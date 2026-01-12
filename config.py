@@ -1,6 +1,6 @@
-from pydantic import BaseSettings
 from typing import List
 from dotenv import load_dotenv
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 load_dotenv()
 
@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     PROJECT_NAME: str = "QR Backend"
     ENV: str = "dev"
 
-    # CORS (liste, pas string)
+    # CORS (liste)
     ALLOWED_ORIGINS: List[str] = [
         "http://localhost:4200",
         "http://localhost:3000",
@@ -18,13 +18,13 @@ class Settings(BaseSettings):
     ]
 
     # Firebase
-    # En local : serviceAccountKey.json
-    # En Cloud Run : laisser vide (Service Account du runtime)
     FIREBASE_CREDENTIALS: str = ""
     FIREBASE_STORAGE_BUCKET: str = ""
 
-    class Config:
-        env_file = ".env"
-        case_sensitive = True
+    # ✅ Pydantic v2 config
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        case_sensitive=True
+    )
 
 settings = Settings()

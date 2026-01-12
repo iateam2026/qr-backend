@@ -6,3 +6,5 @@ pydantic==2.8.2
 qrcode==7.4.2
 Pillow==10.4.0
 shortuuid==1.0.13
+starlette
+pydantic-settings
